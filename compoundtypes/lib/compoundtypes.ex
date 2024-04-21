@@ -1,10 +1,17 @@
+defmodule User do
+  # struct
+  defstruct [:name, :membership]
+end
+
 defmodule Compoundtypes do
+  alias Hex.API.User
   use Application
 
   def start(_type, _args) do
     # Compoundtypes.main()
     # Compoundtypes.timeTillNewYear()
-    Compoundtypes.tuples()
+    # Compoundtypes.tuples()
+    Compoundtypes.loops()
     Supervisor.start_link([], strategy: :one_for_one)
   end
 
@@ -52,5 +59,31 @@ defmodule Compoundtypes do
     user = {"Rohit", 21}
     {name, age} = user
     IO.puts("#{name}'s age is #{age}")
+  end
+
+  def loops do
+    # maps
+    memberships= %{
+      gold: 3,
+      silver: 2,
+      bronze: 1,
+      none: 0
+    }
+
+    #struct
+    user_membership= %User{name: "Rohit", membership: "gold"}
+
+
+    # list
+    users = [
+      {"Rohit", memberships.bronze},
+      {"Ritik", memberships.gold},
+      {"Dev", memberships.silver},
+      {"John", memberships.none}
+    ]
+
+    Enum.each(users, fn {name, membership} ->
+      IO.puts("#{name} has a #{membership} membership")
+    end)
   end
 end
